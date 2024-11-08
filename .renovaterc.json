@@ -7,7 +7,9 @@
       "automergeStrategy": "merge-commit",
       "automergeType": "branch",
       "ignoreTests": true,
-      "matchDepTypes": ["*"]
+      "matchDepTypes": ["*"],
+      "rangeStrategy": "pin",
+      "recreateWhen": "always"
     }
   ],
   "platformAutomerge": true,
