@@ -10,8 +10,8 @@ importers:
       "@playwright/test":
         specifier: 1.48.1
         version: 1.48.1
-      "@types/node":
-        specifier: 22.8.7
+      '@types/node':
+        specifier: <22.9.1
         version: 22.8.7
       prettier:
         specifier: 3.3.2
