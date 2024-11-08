@@ -13,9 +13,20 @@ jobs:
       - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
         with:
           node-version: lts/*
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Cache playwright browsers
+        id: browsers-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-browsers
       - name: Install dependencies
-        run: npm install -g pnpm && pnpm install
+        run: pnpm install
       - name: Install Playwright Browsers
+        if: steps.browsers-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install --with-deps
       - name: Run Playwright tests
         run: pnpm exec playwright test
