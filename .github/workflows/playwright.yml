@@ -76,10 +76,14 @@ jobs:
       - name: Check browser age and update if needed
         shell: bash
         run: |
-          CACHE_AGE=$(find "${{ steps.cache-path.outputs.CACHE_PATH }}" -type f -name "*.json" -mtime +30 2>/dev/null | wc -l)
-          if [ "$CACHE_AGE" -gt 0 ]; then
-            echo "Cache is older than 30 days, forcing browser update"
-            pnpm exec playwright install --with-deps
+          if [ -d "${{ steps.cache-path.outputs.CACHE_PATH }}" ]; then
+            CACHE_AGE=$(find "${{ steps.cache-path.outputs.CACHE_PATH }}" -type f -name "*.json" -mtime +30 2>/dev/null | wc -l)
+            if [ "$CACHE_AGE" -gt 0 ]; then
+              echo "Cache is older than 30 days, forcing browser update"
+              pnpm exec playwright install --with-deps
+            fi
+          else
+            echo "Cache directory not found, skipping age check"
           fi
 
       - name: Run Playwright tests
