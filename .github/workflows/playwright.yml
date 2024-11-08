@@ -8,7 +8,6 @@ name: Build & Test
       - "*"
 jobs:
   test:
-    name: Build & Test
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
