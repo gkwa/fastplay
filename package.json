@@ -9,9 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@playwright/test": "1.48.2",
-    "@types/node": "22.9.0",
-    "prettier": "3.3.3"
+  "dependencies": {
+    "@playwright/test": "<1.48.2",
+    "@types/node": "<22.9.0",
+    "prettier": "<3.3.3"
   }
 }

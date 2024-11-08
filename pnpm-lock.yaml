@@ -6,30 +6,30 @@ settings:
 
 importers:
   .:
-    devDependencies:
+    dependencies:
       "@playwright/test":
-        specifier: 1.48.2
-        version: 1.48.2
+        specifier: <1.48.2
+        version: 1.48.1
       "@types/node":
-        specifier: 22.9.0
-        version: 22.9.0
+        specifier: <22.9.0
+        version: 22.8.7
       prettier:
-        specifier: 3.3.3
-        version: 3.3.3
+        specifier: <3.3.3
+        version: 3.3.2
 
 packages:
-  "@playwright/test@1.48.2":
+  "@playwright/test@1.48.1":
     resolution:
       {
-        integrity: sha512-54w1xCWfXuax7dz4W2M9uw0gDyh+ti/0K/MxcCUxChFh37kkdxPdfZDw5QBbuPUJHr1CiHJ1hXgSs+GgeQc5Zw==,
+        integrity: sha512-s9RtWoxkOLmRJdw3oFvhFbs9OJS0BzrLUc8Hf6l2UdCNd1rqeEyD4BhCJkvzeEoD1FsK4mirsWwGerhVmYKtZg==,
       }
     engines: { node: ">=18" }
     hasBin: true
 
-  "@types/node@22.9.0":
+  "@types/node@22.8.7":
     resolution:
       {
-        integrity: sha512-vuyHg81vvWA1Z1ELfvLko2c8f34gyA0zaic0+Rllc5lbCnbSyuvb2Oxpm6TAUAC/2xZN3QGqxBNggD1nNR2AfQ==,
+        integrity: sha512-LidcG+2UeYIWcMuMUpBKOnryBWG/rnmOHQR5apjn8myTQcx3rinFRn7DcIFhMnS0PPFSC6OafdIKEad0lj6U0Q==,
       }
 
   fsevents@2.3.2:
@@ -40,26 +40,26 @@ packages:
     engines: { node: ^8.16.0 || ^10.6.0 || >=11.0.0 }
     os: [darwin]
 
-  playwright-core@1.48.2:
+  playwright-core@1.48.1:
     resolution:
       {
-        integrity: sha512-sjjw+qrLFlriJo64du+EK0kJgZzoQPsabGF4lBvsid+3CNIZIYLgnMj9V6JY5VhM2Peh20DJWIVpVljLLnlawA==,
+        integrity: sha512-Yw/t4VAFX/bBr1OzwCuOMZkY1Cnb4z/doAFSwf4huqAGWmf9eMNjmK7NiOljCdLmxeRYcGPPmcDgU0zOlzP0YA==,
       }
     engines: { node: ">=18" }
     hasBin: true
 
-  playwright@1.48.2:
+  playwright@1.48.1:
     resolution:
       {
-        integrity: sha512-NjYvYgp4BPmiwfe31j4gHLa3J7bD2WiBz8Lk2RoSsmX38SVIARZ18VYjxLjAcDsAhA+F4iSEXTSGgjua0rrlgQ==,
+        integrity: sha512-j8CiHW/V6HxmbntOfyB4+T/uk08tBy6ph0MpBXwuoofkSnLmlfdYNNkFTYD6ofzzlSqLA1fwH4vwvVFvJgLN0w==,
       }
     engines: { node: ">=18" }
     hasBin: true
 
-  prettier@3.3.3:
+  prettier@3.3.2:
     resolution:
       {
-        integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==,
+        integrity: sha512-rAVeHYMcv8ATV5d508CFdn+8/pHPpXeIid1DdrPwXnaAdH7cqjVbpJaT5eq4yRAFU/lsbwYwSF/n5iNrdJHPQA==,
       }
     engines: { node: ">=14" }
     hasBin: true
@@ -71,25 +71,25 @@ packages:
       }
 
 snapshots:
-  "@playwright/test@1.48.2":
+  "@playwright/test@1.48.1":
     dependencies:
-      playwright: 1.48.2
+      playwright: 1.48.1
 
-  "@types/node@22.9.0":
+  "@types/node@22.8.7":
     dependencies:
       undici-types: 6.19.8
 
   fsevents@2.3.2:
     optional: true
 
-  playwright-core@1.48.2: {}
+  playwright-core@1.48.1: {}
 
-  playwright@1.48.2:
+  playwright@1.48.1:
     dependencies:
-      playwright-core: 1.48.2
+      playwright-core: 1.48.1
     optionalDependencies:
       fsevents: 2.3.2
 
-  prettier@3.3.3: {}
+  prettier@3.3.2: {}
 
   undici-types@6.19.8: {}
