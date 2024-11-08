@@ -21,9 +21,9 @@ jobs:
     timeout-minutes: 60
 
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
-      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af
         with:
           node-version: lts/*
 
@@ -32,15 +32,18 @@ jobs:
         with:
           version: 8
 
-      # Get Playwright version from package.json
       - name: Get Playwright version
         id: playwright-version
         shell: bash
         run: |
-          PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies['@playwright/test'])")
-          echo "version=$PLAYWRIGHT_VERSION" >> $GITHUB_OUTPUT
+          PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package.json').devDependencies?.['@playwright/test'] || require('./package.json').dependencies?.['@playwright/test'] || '')")
+          if [ -n "$PLAYWRIGHT_VERSION" ]; then
+            echo "version=$PLAYWRIGHT_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "Error: @playwright/test not found in package.json"
+            exit 1
+          fi
 
-      # Set OS-specific cache paths
       - name: Set cache path
         id: cache-path
         shell: bash
@@ -53,10 +56,9 @@ jobs:
             echo "CACHE_PATH=~/.cache/ms-playwright" >> $GITHUB_OUTPUT
           fi
 
-      # Cache Playwright browsers with version-specific key
       - name: Cache playwright browsers
         id: browsers-cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
         with:
           path: ${{ steps.cache-path.outputs.CACHE_PATH }}
           key: ${{ runner.os }}-browsers-${{ steps.playwright-version.outputs.version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -67,29 +69,24 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      # Install browsers if cache miss or version mismatch
       - name: Install Playwright Browsers
         if: steps.browsers-cache.outputs.cache-hit != 'true'
         run: pnpm exec playwright install --with-deps
 
-      # Force browser update if cached version is older than 30 days
       - name: Check browser age and update if needed
         shell: bash
         run: |
           if [ -d "${{ steps.cache-path.outputs.CACHE_PATH }}" ]; then
             CACHE_AGE=$(find "${{ steps.cache-path.outputs.CACHE_PATH }}" -type f -name "*.json" -mtime +30 2>/dev/null | wc -l)
             if [ "$CACHE_AGE" -gt 0 ]; then
-              echo "Cache is older than 30 days, forcing browser update"
               pnpm exec playwright install --with-deps
             fi
-          else
-            echo "Cache directory not found, skipping age check"
           fi
 
       - name: Run Playwright tests
         run: pnpm exec playwright test
 
-      - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4
+      - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
         if: ${{ !cancelled() }}
         with:
           name: playwright-report-${{ matrix.os }}-${{ github.run_id }}
