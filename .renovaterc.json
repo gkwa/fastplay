@@ -14,17 +14,14 @@
       "recreateWhen": "always"
     },
     {
+      "description": "Pin PNPM action to SHA",
       "matchManagers": ["github-actions"],
-      "pinDigests": true,
-      "groupName": "github-actions"
+      "matchPackageNames": ["pnpm/action-setup"],
+      "pinDigests": true
     }
   ],
-  "platformAutomerge": true,
-  "prConcurrentLimit": 0,
-  "prHourlyLimit": 0,
   "github-actions": {
     "enabled": true,
-    "fileMatch": ["^.github/workflows/.*\\.ya?ml$"],
-    "pinDigests": true
+    "fileMatch": ["\\.github/workflows/.*\\.ya?ml$"]
   }
 }
