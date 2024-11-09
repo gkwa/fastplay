@@ -11,6 +11,7 @@
       "fileMatch": ["^.github/workflows/.*\\.ya?ml$"],
       "matchStrings": ["uses: (?<depName>.*?)@(?<currentValue>[^\\s]+)"],
       "datasourceTemplate": "github-tags",
+      "versioningTemplate": "semver",
       "depNameTemplate": "{{{depName}}}",
       "extractVersionTemplate": "^v(?<version>.*)$"
     }
