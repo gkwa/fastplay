@@ -5,4 +5,4 @@ default:
 
 fmt:
     just --unstable --fmt
-    prettier --write . --config=.prettierrc.json
+    pnpm fmt
