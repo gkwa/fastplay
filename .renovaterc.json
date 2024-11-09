@@ -15,8 +15,8 @@
     {
       "description": "Pin all GitHub Actions to commit hash",
       "matchDepTypes": ["action"],
-      "matchPackagePatterns": ["*"],
-      "pinDigests": true
+      "pinDigests": true,
+      "matchPackageNames": ["*"]
     }
   ],
   "platformAutomerge": true,
