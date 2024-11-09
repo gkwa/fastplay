@@ -6,6 +6,10 @@
   },
   "packageRules": [
     {
+      "matchDepTypes": ["action"],
+      "pinDigests": true
+    },
+    {
       "description": "Pin all GitHub Actions to commit hash",
       "matchDepTypes": ["action"],
       "pinDigests": true,
