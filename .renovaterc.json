@@ -17,7 +17,7 @@
       "description": "Pin all GitHub Actions including pnpm",
       "matchManagers": ["github-actions"],
       "pinDigests": true,
-      "matchPackagePatterns": ["^actions/", "^pnpm/"]
+      "matchPackageNames": ["/^actions//", "/^pnpm//"]
     }
   ]
 }
