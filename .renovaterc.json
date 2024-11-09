@@ -14,14 +14,14 @@
       "recreateWhen": "always"
     }
   ],
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "fileMatch": ["\\.github/workflows/.*\\.ya?ml$"],
-      "matchStringsStrategy": "any",
       "matchStrings": ["uses: pnpm/action-setup@(?<currentValue>.*?)\\s"],
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "pnpm/action-setup",
-      "additionalBranchPrefix": "github-actions-"
+      "versioningTemplate": "semver"
     }
   ],
   "github-actions": {
