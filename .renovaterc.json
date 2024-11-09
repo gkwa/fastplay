@@ -5,6 +5,15 @@
   "lockFileMaintenance": {
     "enabled": true
   },
+  "regexManagers": [
+    {
+      "fileMatch": ["^.github/workflows/.*\\.ya?ml$"],
+      "matchStrings": ["uses: (?<depName>.*?)@(?<currentValue>[^\\s]+)"],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "{{{depName}}}",
+      "extractVersionTemplate": "^v(?<version>.*)$"
+    }
+  ],
   "packageRules": [
     {
       "automerge": true,
@@ -14,14 +23,8 @@
       "recreateWhen": "always"
     },
     {
-      "description": "Pin PNPM action to SHA",
-      "matchManagers": ["github-actions"],
-      "matchPackageNames": ["pnpm/action-setup"],
+      "matchManagers": ["github-actions", "regex"],
       "pinDigests": true
     }
-  ],
-  "github-actions": {
-    "enabled": true,
-    "fileMatch": ["\\.github/workflows/.*\\.ya?ml$"]
-  }
+  ]
 }
