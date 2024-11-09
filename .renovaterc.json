@@ -1,5 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": ["github-actions", "npm"],
   "extends": ["config:best-practices", ":dependencyDashboard"],
   "lockFileMaintenance": {
     "enabled": true
@@ -11,6 +12,12 @@
       "matchDepTypes": ["*"],
       "rangeStrategy": "pin",
       "recreateWhen": "always"
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["pnpm/action-setup"],
+      "pinDigests": true,
+      "groupName": "github-actions"
     }
   ],
   "platformAutomerge": true,
