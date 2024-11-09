@@ -5,8 +5,9 @@
   "lockFileMaintenance": {
     "enabled": true
   },
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "fileMatch": ["^.github/workflows/.*\\.ya?ml$"],
       "matchStrings": ["uses: (?<depName>.*?)@(?<currentValue>[^\\s]+)"],
       "datasourceTemplate": "github-tags",
@@ -23,7 +24,7 @@
       "recreateWhen": "always"
     },
     {
-      "matchManagers": ["github-actions", "regex"],
+      "matchManagers": ["github-actions", "custom.regex"],
       "pinDigests": true
     }
   ]
