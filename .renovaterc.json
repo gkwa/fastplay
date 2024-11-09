@@ -15,7 +15,6 @@
     },
     {
       "matchManagers": ["github-actions"],
-      "matchPackageNames": ["pnpm/action-setup"],
       "pinDigests": true,
       "groupName": "github-actions"
     }
