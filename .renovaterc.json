@@ -22,13 +22,9 @@
   "platformAutomerge": true,
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
-  "ignorePaths": [],
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": ["^.github/workflows/.*\\.ya?ml$"],
-      "matchStrings": ["uses: (?<depName>.*?)@(?<currentValue>.*?)(\\s|$)"],
-      "datasourceTemplate": "github-tags"
-    }
-  ]
+  "github-actions": {
+    "enabled": true,
+    "fileMatch": ["^.github/workflows/.*\\.ya?ml$"],
+    "pinDigests": true
+  }
 }
