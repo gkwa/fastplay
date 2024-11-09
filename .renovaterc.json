@@ -12,12 +12,20 @@
       "matchDepTypes": ["*"],
       "rangeStrategy": "pin",
       "recreateWhen": "always"
-    },
-    {
-      "description": "Pin all GitHub Actions including pnpm",
-      "matchManagers": ["github-actions"],
-      "pinDigests": true,
-      "matchPackageNames": ["/^actions//", "/^pnpm//"]
     }
-  ]
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": ["\\.github/workflows/.*\\.ya?ml$"],
+      "matchStringsStrategy": "any",
+      "matchStrings": ["uses: pnpm/action-setup@(?<currentValue>.*?)\\s"],
+      "datasourceTemplate": "github-tags",
+      "depNameTemplate": "pnpm/action-setup",
+      "additionalBranchPrefix": "github-actions-"
+    }
+  ],
+  "github-actions": {
+    "enabled": true,
+    "pinDigests": true
+  }
 }
