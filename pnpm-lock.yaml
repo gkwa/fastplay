@@ -8,12 +8,9 @@ importers:
 
   .:
     devDependencies:
-      '@playwright/test':
-        specifier: 1.48.2
-        version: 1.48.2
+
       '@types/node':
         specifier: 22.8.7
-        version: 22.8.7
       prettier:
         specifier: 3.3.2
         version: 3.3.2
