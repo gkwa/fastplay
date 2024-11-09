@@ -1,6 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "enabledManagers": ["github-actions", "npm"],
   "extends": ["config:best-practices", ":dependencyDashboard"],
   "lockFileMaintenance": {
     "enabled": true
@@ -12,20 +11,15 @@
       "matchDepTypes": ["*"],
       "rangeStrategy": "pin",
       "recreateWhen": "always"
-    }
-  ],
-  "customManagers": [
+    },
     {
-      "customType": "regex",
-      "fileMatch": ["\\.github/workflows/.*\\.ya?ml$"],
-      "matchStrings": ["uses: pnpm/action-setup@(?<currentValue>.*?)\\s"],
-      "datasourceTemplate": "github-tags",
-      "depNameTemplate": "pnpm/action-setup",
-      "versioningTemplate": "semver"
+      "description": "Pin all GitHub Actions to commit hash",
+      "matchDepTypes": ["action"],
+      "matchPackagePatterns": ["*"],
+      "pinDigests": true
     }
   ],
-  "github-actions": {
-    "enabled": true,
-    "pinDigests": true
-  }
+  "platformAutomerge": true,
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0
 }
