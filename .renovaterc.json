@@ -7,7 +7,8 @@
   "packageRules": [
     {
       "matchDepTypes": ["action"],
-      "pinDigests": true
+      "pinDigests": true,
+      "recreateWhen": "always"
     },
     {
       "description": "Pin all GitHub Actions to commit hash",
