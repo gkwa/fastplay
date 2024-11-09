@@ -23,8 +23,9 @@
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "ignorePaths": [],
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "fileMatch": ["^.github/workflows/.*\\.ya?ml$"],
       "matchStrings": ["uses: (?<depName>.*?)@(?<currentValue>.*?)(\\s|$)"],
       "datasourceTemplate": "github-tags"
