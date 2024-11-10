@@ -25,10 +25,9 @@ interface UsageRecord {
 async function parseDataUsage(filePath: string): Promise<UsageData> {
   const content = await fs.readFile(filePath, "utf-8")
 
-  const totalMatch = content.match(/Total allotment\s+(\d+\.?\d*)\s*GB/)
-  const currentMatch = content.match(/Current usage\s+(\d+\.?\d*)\s*GB/)
-  const overageMatch = content.match(/Current overage\s+(\d+\.?\d*)\s*GB/)
-  const dateMatch = content.match(/as of (\d{4}-\d{2}-\d{2})/)
+  const totalMatch = content.match(/Total allotment\s+(\d+\.?\d*)\s*(\w+)/)
+  const currentMatch = content.match(/Current usage\s+(\d+\.?\d*)\s*(\w+)/)
+  const overageMatch = content.match(/Current overage\s+(\d+\.?\d*)\s*(\w+)/)
 
   if (!totalMatch || !currentMatch || !overageMatch) {
     throw new Error("Could not parse data usage values")
@@ -50,7 +49,6 @@ test.describe("Astound", () => {
       throw new Error("Missing required environment variables")
     }
 
-    // Ensure data directory exists
     const dataDir = path.join(__dirname, "../data")
     await fs.mkdir(dataDir, { recursive: true })
 
@@ -63,43 +61,42 @@ test.describe("Astound", () => {
     await expect(page.getByText("Data Usage For")).toBeVisible()
 
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-")
-
     const dataFilePrefix = `astound-data-usage-${timestamp}`
 
-    // Save full page screenshot
     await page.screenshot({
       path: path.join(dataDir, `${dataFilePrefix}.png`),
       fullPage: true,
     })
 
-    // Save text content
     const text = await page.evaluate(() => document.body.innerText)
     const textPath = path.join(dataDir, `${dataFilePrefix}.txt`)
     await fs.writeFile(textPath, text)
 
-    // Save HTML content
     const pageContent = await page.content()
     await fs.writeFile(path.join(dataDir, `${dataFilePrefix}.html`), pageContent)
 
-    // Parse the date from the text content
     const dateMatch = text.match(/as of (\d{4}-\d{2}-\d{2})/)
     if (!dateMatch) {
       throw new Error("Could not parse date")
     }
 
-    // Parse the saved text file
     const usage = await parseDataUsage(textPath)
     console.log("Usage data:", usage)
 
-    // Create usage record
+    const unitsMatch = text.match(/Total allotment\s+\d+\.?\d*\s*(\w+)/)
+    if (!unitsMatch) {
+      throw new Error("Could not parse units")
+    }
+    const units = unitsMatch[1]
+
     const record: UsageRecord = {
       date: dateMatch[1],
       amount: usage.current,
-      amountUnits: "GB",
+      amountUnits: units,
       total: usage.total,
-      totalUnits: "GB",
+      totalUnits: units,
       overage: usage.overage,
-      overageUnits: "GB",
+      overageUnits: units,
       scrapedAt: new Date().toISOString(),
     }
 
