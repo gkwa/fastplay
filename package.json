@@ -1,7 +1,6 @@
 {
   "name": "fastplay",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "packageManager": "pnpm@9.12.3",
   "scripts": {
@@ -14,8 +13,6 @@
     "version:minor": "pnpm version minor",
     "version:patch": "pnpm version patch"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "1.48.2",
