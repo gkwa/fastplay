@@ -25,10 +25,13 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@3b9b8c884f6b4bb4d5be2779c26374abadae0871
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af
+        with:
+          node-version: lts/*
       - name: Get node version
         id: node-version
         shell: bash
-        run: echo "version=lts/*" >> $GITHUB_OUTPUT
+        run: echo "version=$(node -v)" >> $GITHUB_OUTPUT
       - name: Set node cache path
         id: node-cache-path
         shell: bash
@@ -46,10 +49,6 @@ jobs:
         with:
           path: ${{ steps.node-cache-path.outputs.path }}
           key: ${{ runner.os }}-node-${{ steps.node-version.outputs.version }}
-      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af
-        if: steps.node-cache.outputs.cache-hit != 'true'
-        with:
-          node-version: lts/*
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Get Playwright version
