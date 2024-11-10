@@ -6,7 +6,7 @@ import { UsageRecord } from "../src/models/UsageData"
 
 test.describe("Astound", () => {
   test("login and scrape usage", async ({ page }) => {
-    const config = new ConfigManager("../.env")
+    const config = new ConfigManager("./.env")
     const credentials = config.getCredentials()
     const dataDir = config.getDataDirectory()
 
