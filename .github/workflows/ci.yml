@@ -37,7 +37,7 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-            echo "path=D:/a/hostedtoolcache/windows/node" >> $GITHUB_OUTPUT
+            echo "path=C:\\hostedtoolcache\\windows\\node" >> $GITHUB_OUTPUT
           elif [ "$RUNNER_OS" == "macOS" ]; then
             echo "path=/Users/runner/hostedtoolcache/node" >> $GITHUB_OUTPUT
           else
@@ -68,7 +68,7 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-            echo "CACHE_PATH=D:/a/ms-playwright-cache" >> $GITHUB_OUTPUT
+            echo "CACHE_PATH=C:\\Users\\runneradmin\\AppData\\Local\\ms-playwright" >> $GITHUB_OUTPUT
           elif [ "$RUNNER_OS" == "macOS" ]; then
             echo "CACHE_PATH=~/Library/Caches/ms-playwright" >> $GITHUB_OUTPUT
           else
