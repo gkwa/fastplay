@@ -27,9 +27,8 @@ jobs:
       - uses: actions/checkout@3b9b8c884f6b4bb4d5be2779c26374abadae0871
       - name: Get node version
         id: node-version
-        run: |
-          NODE_VERSION=lts/*
-          echo "version=$NODE_VERSION" >> $GITHUB_OUTPUT
+        shell: bash
+        run: echo "version=lts/*" >> $GITHUB_OUTPUT
       - name: Cache node
         id: node-cache
         uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
