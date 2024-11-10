@@ -6,21 +6,10 @@
   },
   "packageRules": [
     {
-      "matchDepTypes": ["action"],
-      "pinDigests": true,
-      "recreateWhen": "always"
-    },
-    {
-      "description": "Pin all GitHub Actions to commit hash",
-      "matchDepTypes": ["action"],
-      "pinDigests": true,
-      "versioning": "semver",
-      "extractVersion": "^v(?<version>.*)$",
-      "matchPackageNames": ["/^(?:actions|pnpm)/.*/"]
-    },
-    {
       "automerge": true,
       "automergeStrategy": "merge-commit",
+      "automergeType": "branch",
+      "ignoreTests": true,
       "matchDepTypes": ["*"],
       "rangeStrategy": "pin",
       "recreateWhen": "always"
