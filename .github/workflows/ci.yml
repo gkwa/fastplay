@@ -9,9 +9,11 @@ name: Build & Test
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
+
 env:
   ASTOUND_BROADBAND_LOGIN_USERNAME: ${{ secrets.ASTOUND_BROADBAND_LOGIN_USERNAME }}
   ASTOUND_BROADBAND_LOGIN_PASSWORD: ${{ secrets.ASTOUND_BROADBAND_LOGIN_PASSWORD }}
+
 jobs:
   test:
     name: Build & Test
@@ -28,28 +30,6 @@ jobs:
       - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af
         with:
           node-version: lts/*
-      - name: Get node version
-        id: node-version
-        shell: bash
-        run: echo "version=$(node -v)" >> $GITHUB_OUTPUT
-      - name: Set node cache path
-        id: node-cache-path
-        shell: bash
-        run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            echo "path=C:\\hostedtoolcache\\windows\\node" >> $GITHUB_OUTPUT
-          elif [ "$RUNNER_OS" == "macOS" ]; then
-            echo "path=/Users/runner/hostedtoolcache/node" >> $GITHUB_OUTPUT
-          else
-            echo "path=/opt/hostedtoolcache/node" >> $GITHUB_OUTPUT
-          fi
-      - name: Cache node
-        id: node-cache
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
-        with:
-          path: ${{ steps.node-cache-path.outputs.path }}
-          key: ${{ runner.os }}-node-${{ steps.node-version.outputs.version }}
-          enableCrossOsArchive: false
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Get Playwright version
@@ -68,7 +48,7 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-            echo "CACHE_PATH=C:\\Users\\runneradmin\\AppData\\Local\\ms-playwright" >> $GITHUB_OUTPUT
+            echo "CACHE_PATH=C:/Users/runneradmin/AppData/Local/ms-playwright" >> $GITHUB_OUTPUT
           elif [ "$RUNNER_OS" == "macOS" ]; then
             echo "CACHE_PATH=~/Library/Caches/ms-playwright" >> $GITHUB_OUTPUT
           else
@@ -83,7 +63,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-browsers-${{ steps.playwright-version.outputs.version }}-
             ${{ runner.os }}-browsers-
-          enableCrossOsArchive: false
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright Browsers
