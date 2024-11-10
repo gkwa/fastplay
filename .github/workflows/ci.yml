@@ -9,11 +9,9 @@ name: Build & Test
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
-
 env:
   ASTOUND_BROADBAND_LOGIN_USERNAME: ${{ secrets.ASTOUND_BROADBAND_LOGIN_USERNAME }}
   ASTOUND_BROADBAND_LOGIN_PASSWORD: ${{ secrets.ASTOUND_BROADBAND_LOGIN_PASSWORD }}
-
 jobs:
   test:
     name: Build & Test
@@ -27,7 +25,19 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@3b9b8c884f6b4bb4d5be2779c26374abadae0871
+      - name: Get node version
+        id: node-version
+        run: |
+          NODE_VERSION=lts/*
+          echo "version=$NODE_VERSION" >> $GITHUB_OUTPUT
+      - name: Cache node
+        id: node-cache
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        with:
+          path: ~/.node
+          key: ${{ runner.os }}-node-${{ steps.node-version.outputs.version }}
       - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af
+        if: steps.node-cache.outputs.cache-hit != 'true'
         with:
           node-version: lts/*
       - name: Install pnpm
