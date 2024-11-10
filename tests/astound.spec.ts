@@ -64,20 +64,22 @@ test.describe("Astound", () => {
 
     const timestamp = new Date().toISOString().replace(/[:.]/g, "-")
 
+    const dataFilePrefix = `astound-data-usage-${timestamp}`
+
     // Save full page screenshot
     await page.screenshot({
-      path: path.join(dataDir, `data-usage-${timestamp}.png`),
+      path: path.join(dataDir, `${dataFilePrefix}.png`),
       fullPage: true,
     })
 
     // Save text content
     const text = await page.evaluate(() => document.body.innerText)
-    const textPath = path.join(dataDir, `data-usage-${timestamp}.txt`)
+    const textPath = path.join(dataDir, `${dataFilePrefix}.txt`)
     await fs.writeFile(textPath, text)
 
     // Save HTML content
     const pageContent = await page.content()
-    await fs.writeFile(path.join(dataDir, `data-usage-${timestamp}.html`), pageContent)
+    await fs.writeFile(path.join(dataDir, `${dataFilePrefix}.html`), pageContent)
 
     // Parse the date from the text content
     const dateMatch = text.match(/as of (\d{4}-\d{2}-\d{2})/)
@@ -101,18 +103,7 @@ test.describe("Astound", () => {
       scrapedAt: new Date().toISOString(),
     }
 
-    // Save to JSON file
-    const jsonPath = path.join(dataDir, "usage-history.json")
-    let history: UsageRecord[] = []
-
-    try {
-      const existingData = await fs.readFile(jsonPath, "utf-8")
-      history = JSON.parse(existingData)
-    } catch (error) {
-      // File doesn't exist yet, start with empty array
-    }
-
-    history.push(record)
-    await fs.writeFile(jsonPath, JSON.stringify(history, null, 2))
+    const jsonPath = path.join(dataDir, `${dataFilePrefix}.json`)
+    await fs.writeFile(jsonPath, JSON.stringify(record, null, 2))
   })
 })
