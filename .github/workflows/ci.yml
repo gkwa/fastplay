@@ -37,7 +37,7 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-            echo "path=C:/hostedtoolcache/windows/node" >> $GITHUB_OUTPUT
+            echo "path=D:/a/hostedtoolcache/windows/node" >> $GITHUB_OUTPUT # Using D: drive for faster I/O
           elif [ "$RUNNER_OS" == "macOS" ]; then
             echo "path=/Users/runner/hostedtoolcache/node" >> $GITHUB_OUTPUT
           else
@@ -49,6 +49,8 @@ jobs:
         with:
           path: ${{ steps.node-cache-path.outputs.path }}
           key: ${{ runner.os }}-node-${{ steps.node-version.outputs.version }}
+          enableCrossOsArchive: false
+          compressionLevel: 5 # Lower compression for faster cache operations
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Get Playwright version
@@ -67,7 +69,7 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-            echo "CACHE_PATH=C:/Users/runneradmin/AppData/Local/ms-playwright" >> $GITHUB_OUTPUT
+            echo "CACHE_PATH=D:/a/ms-playwright-cache" >> $GITHUB_OUTPUT # Using D: drive and shorter path
           elif [ "$RUNNER_OS" == "macOS" ]; then
             echo "CACHE_PATH=~/Library/Caches/ms-playwright" >> $GITHUB_OUTPUT
           else
@@ -82,6 +84,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-browsers-${{ steps.playwright-version.outputs.version }}-
             ${{ runner.os }}-browsers-
+          enableCrossOsArchive: false
+          compressionLevel: 5 # Lower compression for faster cache operations
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright Browsers
