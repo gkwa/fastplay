@@ -6,7 +6,7 @@
   "packageManager": "pnpm@9.12.3",
   "scripts": {
     "fmt": "prettier --ignore-path=.prettierignore --config=.prettierrc.json --write .",
-    "test": "playwright test",
+    "test": "playwright test example.spec.ts",
     "astound": "playwright test astound.spec.ts",
     "astound:headed": "playwright test astound.spec.ts --headed",
     "astound:ui": "playwright test astound.spec.ts --ui"
