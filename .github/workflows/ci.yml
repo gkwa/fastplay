@@ -29,11 +29,22 @@ jobs:
         id: node-version
         shell: bash
         run: echo "version=lts/*" >> $GITHUB_OUTPUT
+      - name: Set node cache path
+        id: node-cache-path
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            echo "path=C:/hostedtoolcache/windows/node" >> $GITHUB_OUTPUT
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            echo "path=/Users/runner/hostedtoolcache/node" >> $GITHUB_OUTPUT
+          else
+            echo "path=/opt/hostedtoolcache/node" >> $GITHUB_OUTPUT
+          fi
       - name: Cache node
         id: node-cache
         uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
         with:
-          path: ~/.node
+          path: ${{ steps.node-cache-path.outputs.path }}
           key: ${{ runner.os }}-node-${{ steps.node-version.outputs.version }}
       - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af
         if: steps.node-cache.outputs.cache-hit != 'true'
