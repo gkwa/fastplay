@@ -1,6 +1,6 @@
 import { trace, Context } from "@opentelemetry/api"
-import { NodeTracerProvider } from "@opentelemetry/node"
-import { SimpleSpanProcessor } from "@opentelemetry/tracing"
+import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node"
+import { SimpleSpanProcessor } from "@opentelemetry/sdk-trace-base"
 
 export class TracingService {
   private static instance: TracingService

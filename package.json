@@ -16,8 +16,8 @@
   "license": "ISC",
   "devDependencies": {
     "@opentelemetry/api": "1.7.0",
-    "@opentelemetry/tracing": "0.24.0",
-    "@opentelemetry/node": "0.24.0",
+    "@opentelemetry/sdk-trace-base": "1.21.0",
+    "@opentelemetry/sdk-trace-node": "1.21.0",
     "@opentelemetry/instrumentation": "0.44.0",
     "@playwright/test": "1.48.2",
     "@types/node": "22.9.0",
