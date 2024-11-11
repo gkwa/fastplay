@@ -16,9 +16,10 @@
   "license": "ISC",
   "devDependencies": {
     "@opentelemetry/api": "1.7.0",
+    "@opentelemetry/exporter-jaeger": "1.27.0",
+    "@opentelemetry/instrumentation": "0.44.0",
     "@opentelemetry/sdk-trace-base": "1.21.0",
     "@opentelemetry/sdk-trace-node": "1.21.0",
-    "@opentelemetry/instrumentation": "0.44.0",
     "@playwright/test": "1.48.2",
     "@types/node": "22.9.0",
     "dotenv": "16.4.5",

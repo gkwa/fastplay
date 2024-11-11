@@ -1,6 +1,7 @@
 import { trace, Context, context } from "@opentelemetry/api"
 import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node"
 import { SimpleSpanProcessor, ConsoleSpanExporter } from "@opentelemetry/sdk-trace-base"
+import { JaegerExporter } from "@opentelemetry/exporter-jaeger"
 
 export class TracingService {
   private static instance: TracingService
@@ -8,7 +9,16 @@ export class TracingService {
 
   private constructor() {
     this.provider = new NodeTracerProvider()
+
+    // Console exporter for immediate feedback
     this.provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()))
+
+    // Jaeger exporter for visualization
+    const jaegerExporter = new JaegerExporter({
+      endpoint: "http://localhost:14268/api/traces",
+    })
+    this.provider.addSpanProcessor(new SimpleSpanProcessor(jaegerExporter))
+
     this.provider.register()
   }
 
