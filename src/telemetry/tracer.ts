@@ -1,9 +1,9 @@
 import { trace, Context, context, Tracer, Span, SpanStatusCode } from "@opentelemetry/api"
 import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node"
 import { SimpleSpanProcessor, ConsoleSpanExporter } from "@opentelemetry/sdk-trace-base"
-import { JaegerExporter } from "@opentelemetry/exporter-jaeger"
 import { Resource } from "@opentelemetry/resources"
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions"
+import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-grpc"
 
 export interface TracingContext extends Context {
   span?: Span
@@ -21,12 +21,13 @@ export class TracingService {
       }),
     })
 
-    const jaegerExporter = new JaegerExporter({
-      endpoint: "http://localhost:14268/api/traces",
+    const otlpExporter = new OTLPTraceExporter({
+      url: "http://localhost:4317",
     })
 
+    // Add both console and OTLP exporters
     this.provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()))
-    this.provider.addSpanProcessor(new SimpleSpanProcessor(jaegerExporter))
+    this.provider.addSpanProcessor(new SimpleSpanProcessor(otlpExporter))
     this.provider.register()
 
     this.tracer = trace.getTracer("fastplay")

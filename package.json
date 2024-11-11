@@ -16,7 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "@opentelemetry/api": "1.7.0",
-    "@opentelemetry/exporter-jaeger": "1.27.0",
+    "@opentelemetry/exporter-trace-otlp-grpc": "0.48.0",
     "@opentelemetry/instrumentation": "0.44.0",
     "@opentelemetry/resources": "1.27.0",
     "@opentelemetry/sdk-trace-base": "1.21.0",
