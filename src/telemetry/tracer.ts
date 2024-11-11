@@ -1,6 +1,6 @@
 import { trace, Context, context } from "@opentelemetry/api"
 import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node"
-import { SimpleSpanProcessor } from "@opentelemetry/sdk-trace-base"
+import { SimpleSpanProcessor, ConsoleSpanExporter } from "@opentelemetry/sdk-trace-base"
 
 export class TracingService {
   private static instance: TracingService
@@ -8,7 +8,7 @@ export class TracingService {
 
   private constructor() {
     this.provider = new NodeTracerProvider()
-    this.provider.addSpanProcessor(new SimpleSpanProcessor())
+    this.provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()))
     this.provider.register()
   }
 
