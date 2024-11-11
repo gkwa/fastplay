@@ -2,23 +2,26 @@ import { trace, Context, context } from "@opentelemetry/api"
 import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node"
 import { SimpleSpanProcessor, ConsoleSpanExporter } from "@opentelemetry/sdk-trace-base"
 import { JaegerExporter } from "@opentelemetry/exporter-jaeger"
+import { Resource } from "@opentelemetry/resources"
+import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions"
 
 export class TracingService {
   private static instance: TracingService
   private provider: NodeTracerProvider
 
   private constructor() {
-    this.provider = new NodeTracerProvider()
+    this.provider = new NodeTracerProvider({
+      resource: new Resource({
+        [SemanticResourceAttributes.SERVICE_NAME]: "fastplay",
+      }),
+    })
 
-    // Console exporter for immediate feedback
-    this.provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()))
-
-    // Jaeger exporter for visualization
     const jaegerExporter = new JaegerExporter({
       endpoint: "http://localhost:14268/api/traces",
     })
-    this.provider.addSpanProcessor(new SimpleSpanProcessor(jaegerExporter))
 
+    this.provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()))
+    this.provider.addSpanProcessor(new SimpleSpanProcessor(jaegerExporter))
     this.provider.register()
   }
 
