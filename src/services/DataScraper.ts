@@ -36,9 +36,9 @@ export class DataScraper {
           throw new Error("Login redirect failed - unexpected destination")
         }
       } catch (error) {
-        if (error.name === "TimeoutError") {
+        if (error instanceof Error && error.name === "TimeoutError") {
           const currentUrl = this.page.url()
-          context.recordException(error)
+          context.setStatus({ code: Error })
         }
         throw error
       }
@@ -52,7 +52,9 @@ export class DataScraper {
         const hasLoginButton = (await this.page.locator("#username").count()) > 0
         return currentUrl.includes("data_usage") && !hasLoginButton
       } catch (error) {
-        context.recordException(error)
+        if (error instanceof Error) {
+          context.setStatus({ code: Error })
+        }
         return false
       }
     })
