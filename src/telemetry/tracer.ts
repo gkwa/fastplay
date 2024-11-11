@@ -1,4 +1,4 @@
-import { trace, Context } from "@opentelemetry/api"
+import { trace, Context, context } from "@opentelemetry/api"
 import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node"
 import { SimpleSpanProcessor } from "@opentelemetry/sdk-trace-base"
 
@@ -31,7 +31,7 @@ export class TracingService {
     const tracer = this.getTracer(name)
     return await tracer.startActiveSpan(operation, async (span) => {
       try {
-        const result = await fn(trace.setSpan(trace.context(), span))
+        const result = await fn(trace.setSpan(context.active(), span))
         span.end()
         return result
       } catch (error) {
