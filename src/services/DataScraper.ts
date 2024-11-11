@@ -2,7 +2,7 @@ import { type Page } from "@playwright/test"
 import { UsageData } from "../models/UsageData"
 import { UsageParser } from "./UsageParser"
 import { TracingService } from "../telemetry/tracer"
-import { SpanStatusCode } from "@opentelemetry/api"
+import { SpanStatusCode, type Span, context, trace } from "@opentelemetry/api"
 
 export interface ScrapedData {
   text: string
@@ -17,20 +17,39 @@ export class DataScraper {
 
   constructor(private readonly page: Page) {}
 
+  private async createChildSpan(parentSpan: Span, name: string): Promise<Span> {
+    const tracer = this.tracer.getTracer()
+    const ctx = trace.setSpan(context.active(), parentSpan)
+    return tracer.startSpan(name, undefined, ctx)
+  }
+
   async login(username: string, password: string): Promise<void> {
     return this.tracer.traceAsync("DataScraper", "login", async (context) => {
       try {
+        const { span } = context
+
+        const navigateSpan = await this.createChildSpan(span!, "navigate")
         await this.page.goto("https://my.astound.com/data_usage")
+        navigateSpan.end()
+
+        const credentialsSpan = await this.createChildSpan(span!, "fill-credentials")
         const usernameField = await this.page.locator("#username")
         await usernameField.fill(username)
         const passwordField = await this.page.locator("#password")
         await passwordField.fill(password)
+        credentialsSpan.end()
+
+        const submitSpan = await this.createChildSpan(span!, "submit-login")
         const loginButton = await this.page.getByRole("button", { name: "LOG IN" })
         await loginButton.click()
+        submitSpan.end()
+
+        const waitSpan = await this.createChildSpan(span!, "wait-redirect")
         await this.page.waitForURL("**/data_usage", {
           timeout: 30000,
           waitUntil: "networkidle",
         })
+        waitSpan.end()
 
         const finalUrl = this.page.url()
         if (!finalUrl.includes("data_usage")) {
@@ -42,21 +61,6 @@ export class DataScraper {
           context.span?.setStatus({ code: SpanStatusCode.ERROR })
         }
         throw error
-      }
-    })
-  }
-
-  private async isLoggedIn(): Promise<boolean> {
-    return this.tracer.traceAsync("DataScraper", "isLoggedIn", async (context) => {
-      try {
-        const currentUrl = this.page.url()
-        const hasLoginButton = (await this.page.locator("#username").count()) > 0
-        return currentUrl.includes("data_usage") && !hasLoginButton
-      } catch (error) {
-        if (error instanceof Error) {
-          context.span?.setStatus({ code: SpanStatusCode.ERROR })
-        }
-        return false
       }
     })
   }
