@@ -15,6 +15,10 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "@opentelemetry/api": "1.7.0",
+    "@opentelemetry/sdk-trace-base": "1.22.0",
+    "@opentelemetry/sdk-trace-node": "1.22.0",
+    "@opentelemetry/exporter-console": "1.22.0",
     "@playwright/test": "1.48.2",
     "@types/node": "22.9.0",
     "dotenv": "16.4.5",
