@@ -1,9 +1,9 @@
-import { trace, Context, context, Tracer, Span } from "@opentelemetry/api"
+import { trace, Context, context, Tracer, Span, SpanStatusCode } from "@opentelemetry/api"
 import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node"
 import { SimpleSpanProcessor, ConsoleSpanExporter } from "@opentelemetry/sdk-trace-base"
 import { JaegerExporter } from "@opentelemetry/exporter-jaeger"
-import { Resource } from "@opentelemetry/sdk-resources"
-import { SemanticResourceAttributes } from "@opentelemetry/sdk-semantic-conventions"
+import { Resource } from "@opentelemetry/resources"
+import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions"
 
 export interface TracingContext extends Context {
   span?: Span
@@ -56,7 +56,7 @@ export class TracingService {
         return result
       } catch (error) {
         span.recordException(error as Error)
-        span.setStatus({ code: Error })
+        span.setStatus({ code: SpanStatusCode.ERROR })
         span.end()
         throw error
       }
