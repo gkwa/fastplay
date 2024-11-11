@@ -2,6 +2,7 @@ import { type Page } from "@playwright/test"
 import { UsageData } from "../models/UsageData"
 import { UsageParser } from "./UsageParser"
 import { TracingService } from "../telemetry/tracer"
+import { SpanStatusCode } from "@opentelemetry/api"
 
 export interface ScrapedData {
   text: string
@@ -38,7 +39,7 @@ export class DataScraper {
       } catch (error) {
         if (error instanceof Error && error.name === "TimeoutError") {
           const currentUrl = this.page.url()
-          context.setStatus({ code: Error })
+          context.span?.setStatus({ code: SpanStatusCode.ERROR })
         }
         throw error
       }
@@ -53,7 +54,7 @@ export class DataScraper {
         return currentUrl.includes("data_usage") && !hasLoginButton
       } catch (error) {
         if (error instanceof Error) {
-          context.setStatus({ code: Error })
+          context.span?.setStatus({ code: SpanStatusCode.ERROR })
         }
         return false
       }

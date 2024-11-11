@@ -1,13 +1,18 @@
-import { trace, Context, context } from "@opentelemetry/api"
+import { trace, Context, context, Tracer, Span } from "@opentelemetry/api"
 import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node"
 import { SimpleSpanProcessor, ConsoleSpanExporter } from "@opentelemetry/sdk-trace-base"
 import { JaegerExporter } from "@opentelemetry/exporter-jaeger"
-import { Resource } from "@opentelemetry/resources"
-import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions"
+import { Resource } from "@opentelemetry/sdk-resources"
+import { SemanticResourceAttributes } from "@opentelemetry/sdk-semantic-conventions"
+
+export interface TracingContext extends Context {
+  span?: Span
+}
 
 export class TracingService {
   private static instance: TracingService
   private provider: NodeTracerProvider
+  private tracer: Tracer
 
   private constructor() {
     this.provider = new NodeTracerProvider({
@@ -23,6 +28,8 @@ export class TracingService {
     this.provider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()))
     this.provider.addSpanProcessor(new SimpleSpanProcessor(jaegerExporter))
     this.provider.register()
+
+    this.tracer = trace.getTracer("fastplay")
   }
 
   public static getInstance(): TracingService {
@@ -32,24 +39,24 @@ export class TracingService {
     return TracingService.instance
   }
 
-  public getTracer(name: string) {
-    return trace.getTracer(name)
+  public getTracer(): Tracer {
+    return this.tracer
   }
 
   public async traceAsync<T>(
     name: string,
     operation: string,
-    fn: (context: Context) => Promise<T>,
+    fn: (context: TracingContext) => Promise<T>,
   ): Promise<T> {
-    const tracer = this.getTracer(name)
-    return await tracer.startActiveSpan(operation, async (span) => {
+    return await this.tracer.startActiveSpan(operation, async (span) => {
       try {
-        const result = await fn(trace.setSpan(context.active(), span))
+        const ctx = trace.setSpan(context.active(), span)
+        const result = await fn({ ...ctx, span })
         span.end()
         return result
       } catch (error) {
         span.recordException(error as Error)
-        span.setStatus({ code: 2 })
+        span.setStatus({ code: Error })
         span.end()
         throw error
       }
