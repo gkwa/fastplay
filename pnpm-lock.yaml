@@ -27,7 +27,7 @@ importers:
         specifier: 1.21.0
         version: 1.21.0(@opentelemetry/api@1.7.0)
       '@opentelemetry/semantic-conventions':
-        specifier: 1.21.0
+        specifier: v1.21.0
         version: 1.21.0
       '@playwright/test':
         specifier: 1.48.2
