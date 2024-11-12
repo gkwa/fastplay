@@ -1,6 +1,8 @@
 import { type Page } from "@playwright/test"
 import { UsageData } from "../models/UsageData"
 import { UsageParser } from "./UsageParser"
+import fs from "fs/promises"
+import path from "path"
 
 export interface ScrapedData {
   text: string
@@ -19,6 +21,12 @@ export class DataScraper {
     await this.page.locator("#password").fill(password)
     await this.page.getByRole("button", { name: "LOG IN" }).click()
     await this.page.waitForURL("**/data_usage")
+  }
+
+  async loadLocalHtml(filePath: string): Promise<void> {
+    const absolutePath = path.resolve(process.cwd(), filePath)
+    const content = await fs.readFile(absolutePath, "utf-8")
+    await this.page.setContent(content)
   }
 
   async scrape(): Promise<ScrapedData> {
