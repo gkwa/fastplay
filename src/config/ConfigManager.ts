@@ -9,12 +9,17 @@ export interface Credentials {
 export class ConfigManager {
   constructor(envPath: string) {
     const envFile = path.resolve(process.cwd(), envPath)
-    const result = dotenv.config({ path: envFile })
 
-    if (result.error) {
-      throw new Error(
-        `Unable to load environment variables from ${envFile}. Please ensure this file exists and contains ASTOUND_BROADBAND_LOGIN_USERNAME and ASTOUND_BROADBAND_LOGIN_PASSWORD variables.`,
-      )
+    const vars =
+      process.env.ASTOUND_BROADBAND_LOGIN_USERNAME && process.env.ASTOUND_BROADBAND_LOGIN_PASSWORD
+
+    if (!vars) {
+      const result = dotenv.config({ path: envFile })
+      if (result.error) {
+        throw new Error(
+          `Unable to load environment variables from ${envFile}. Please ensure this file exists and contains ASTOUND_BROADBAND_LOGIN_USERNAME and ASTOUND_BROADBAND_LOGIN_PASSWORD variables.`,
+        )
+      }
     }
   }
 
