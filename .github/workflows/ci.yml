@@ -10,8 +10,8 @@ name: Build & Test
     - cron: "0 */6 * * *"
   workflow_dispatch:
 env:
-  ASTOUND_BROADBAND_LOGIN_USERNAME: ${{ secrets.ASTOUND_BROADBAND_LOGIN_USERNAME }}
-  ASTOUND_BROADBAND_LOGIN_PASSWORD: ${{ secrets.ASTOUND_BROADBAND_LOGIN_PASSWORD }}
+  ASTOUND_BROADBAND_LOGIN_USERNAME: sally
+  ASTOUND_BROADBAND_LOGIN_PASSWORD: secret
 jobs:
   test:
     name: Build & Test
