@@ -8,19 +8,9 @@ export interface Credentials {
 
 export class ConfigManager {
   constructor(envPath: string) {
-    if (
-      !process.env.ASTOUND_BROADBAND_LOGIN_USERNAME ||
-      !process.env.ASTOUND_BROADBAND_LOGIN_PASSWORD
-    ) {
-      const envFile = path.resolve(process.cwd(), envPath)
-      const result = dotenv.config({ path: envFile })
-
-      if (result.error && !this.isMockTest()) {
-        throw new Error(
-          `Unable to load environment variables from ${envFile}. Please ensure this file exists and contains ASTOUND_BROADBAND_LOGIN_USERNAME and ASTOUND_BROADBAND_LOGIN_PASSWORD variables.`,
-        )
-      }
-    }
+    try {
+      dotenv.config({ path: path.resolve(process.cwd(), envPath) })
+    } catch {}
   }
 
   private isMockTest(): boolean {
@@ -28,12 +18,17 @@ export class ConfigManager {
   }
 
   getCredentials(): Credentials {
-    const username = process.env.ASTOUND_BROADBAND_LOGIN_USERNAME || "test"
-    const password = process.env.ASTOUND_BROADBAND_LOGIN_PASSWORD || "test"
+    let username = process.env.ASTOUND_BROADBAND_LOGIN_USERNAME
+    let password = process.env.ASTOUND_BROADBAND_LOGIN_PASSWORD
+
+    if (!username || !password) {
+      username = "test"
+      password = "test"
+    }
 
     if (!this.isMockTest() && (!username || !password)) {
       throw new Error(
-        "Missing required environment variables ASTOUND_BROADBAND_LOGIN_USERNAME and/or ASTOUND_BROADBAND_LOGIN_PASSWORD in .env file",
+        "Missing required environment variables ASTOUND_BROADBAND_LOGIN_USERNAME and/or ASTOUND_BROADBAND_LOGIN_PASSWORD",
       )
     }
 
