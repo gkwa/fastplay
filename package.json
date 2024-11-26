@@ -6,12 +6,12 @@
   "scripts": {
     "fmt": "prettier --ignore-path=.prettierignore --config=.prettierrc.json --write .",
     "test": "playwright test example.spec.ts",
-    "astound": "ASTOUND_CONFIG=prod playwright test astound.spec.ts",
-    "astound:headed": "ASTOUND_CONFIG=prod playwright test astound.spec.ts --headed",
-    "astound:ui": "ASTOUND_CONFIG=prod playwright test astound.spec.ts --ui",
-    "astound:test:mock": "ASTOUND_CONFIG=test playwright test astound.mock.spec.ts",
-    "astound:test:mock:headed": "ASTOUND_CONFIG=test playwright test astound.mock.spec.ts --headed",
-    "astound:test:mock:ui": "ASTOUND_CONFIG=test playwright test astound.mock.spec.ts --ui",
+    "astound": "cross-env ASTOUND_CONFIG=prod playwright test astound.spec.ts",
+    "astound:headed": "cross-env ASTOUND_CONFIG=prod playwright test astound.spec.ts --headed",
+    "astound:ui": "cross-env ASTOUND_CONFIG=prod playwright test astound.spec.ts --ui",
+    "astound:test:mock": "cross-env ASTOUND_CONFIG=test playwright test astound.mock.spec.ts",
+    "astound:test:mock:headed": "cross-env ASTOUND_CONFIG=test playwright test astound.mock.spec.ts --headed",
+    "astound:test:mock:ui": "cross-env ASTOUND_CONFIG=test playwright test astound.mock.spec.ts --ui",
     "version:major": "pnpm version major",
     "version:minor": "pnpm version minor",
     "version:patch": "pnpm version patch"
@@ -20,6 +20,7 @@
   "devDependencies": {
     "@playwright/test": "1.49.0",
     "@types/node": "22.10.0",
+    "cross-env": "^7.0.3",
     "dotenv": "16.4.5",
     "prettier": "3.4.1"
   }
