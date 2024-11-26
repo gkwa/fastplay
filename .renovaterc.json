@@ -10,7 +10,7 @@
       "recreateWhen": "always"
     }
   ],
-  "baseBranches": ["astound", "ot", "ot-with-childspans"],
+  "baseBranches": ["astound", "master"],
   "platformAutomerge": true,
   "postUpdateOptions": ["npmDedupe", "pnpmDedupe"],
   "prHourlyLimit": 0
