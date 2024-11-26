@@ -1,23 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:best-practices", ":dependencyDashboard"],
-  "lockFileMaintenance": {
-    "enabled": true
-  },
   "packageRules": [
-    {
-      "matchDepTypes": ["action"],
-      "pinDigests": true,
-      "recreateWhen": "always"
-    },
-    {
-      "description": "Pin all GitHub Actions to commit hash",
-      "matchDepTypes": ["action"],
-      "pinDigests": true,
-      "versioning": "semver",
-      "extractVersion": "^v(?<version>.*)$",
-      "matchPackageNames": ["/^(?:actions|pnpm)/.*/"]
-    },
     {
       "automerge": true,
       "automergeStrategy": "merge-commit",
@@ -26,7 +10,8 @@
       "recreateWhen": "always"
     }
   ],
+  "baseBranches": ["astound", "ot", "ot-with-childspans"],
   "platformAutomerge": true,
-  "prConcurrentLimit": 0,
+  "postUpdateOptions": ["npmDedupe", "pnpmDedupe"],
   "prHourlyLimit": 0
 }
