@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   jaeger:
-    image: jaegertracing/all-in-one:1.54
+    image: jaegertracing/all-in-one:1.54@sha256:f4044964505c81bf12131c2dfd1f4ddf1d1421bbbd9d79f691221cac077599a8
     ports:
       - "16686:16686" # UI
       - "14250:14250" # gRPC
