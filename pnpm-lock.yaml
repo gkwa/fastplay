@@ -15,7 +15,7 @@ importers:
         specifier: 22.10.0
         version: 22.10.0
       cross-env:
-        specifier: ^7.0.3
+        specifier: 7.0.3
         version: 7.0.3
       dotenv:
         specifier: 16.4.5
