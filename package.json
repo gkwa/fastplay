@@ -6,12 +6,12 @@
   "scripts": {
     "fmt": "prettier --ignore-path=.prettierignore --config=.prettierrc.json --write .",
     "test": "playwright test example.spec.ts",
-    "astound": "playwright test astound.spec.ts",
-    "astound:headed": "playwright test astound.spec.ts --headed",
-    "astound:ui": "playwright test astound.spec.ts --ui",
-    "astound:test:mock": "playwright test astound.mock.spec.ts",
-    "astound:test:mock:headed": "playwright test astound.mock.spec.ts --headed",
-    "astound:test:mock:ui": "playwright test astound.mock.spec.ts --ui",
+    "astound": "ASTOUND_CONFIG=prod playwright test astound.spec.ts",
+    "astound:headed": "ASTOUND_CONFIG=prod playwright test astound.spec.ts --headed",
+    "astound:ui": "ASTOUND_CONFIG=prod playwright test astound.spec.ts --ui",
+    "astound:test:mock": "ASTOUND_CONFIG=test playwright test astound.mock.spec.ts",
+    "astound:test:mock:headed": "ASTOUND_CONFIG=test playwright test astound.mock.spec.ts --headed",
+    "astound:test:mock:ui": "ASTOUND_CONFIG=test playwright test astound.mock.spec.ts --ui",
     "version:major": "pnpm version major",
     "version:minor": "pnpm version minor",
     "version:patch": "pnpm version patch"
