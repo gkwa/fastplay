@@ -12,7 +12,7 @@ const CONFIG = {
     requireCreds: true,
   },
   test: {
-    dataDir: "tmpdata",
+    dataDir: "testdata",
     requireCreds: false,
   },
 }
