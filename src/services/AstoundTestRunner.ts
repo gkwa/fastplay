@@ -1,8 +1,8 @@
 import { test, expect, Page } from "@playwright/test"
 import { ConfigManager } from "../config/ConfigManager"
-import { DataScraper } from "./DataScraper"
 import { FileManager } from "./FileManager"
 import { UsageRecord } from "../models/UsageData"
+import { AstoundBillingDataScraper } from "./scrapers/AstoundBillingDataScraper"
 
 export interface AstoundTestConfig {
   useMockData?: boolean
@@ -19,7 +19,7 @@ export class AstoundTestRunner {
     const fileManager = new FileManager(dataDir)
     await fileManager.initialize()
 
-    const scraper = new DataScraper(page)
+    const scraper = new AstoundBillingDataScraper(page)
 
     if (this.config.useMockData) {
       if (!this.config.mockHtmlPath) {
@@ -28,7 +28,7 @@ export class AstoundTestRunner {
       await scraper.loadLocalHtml(this.config.mockHtmlPath)
     } else {
       const credentials = configManager.getCredentials()
-      await scraper.login(credentials.username, credentials.password)
+      await scraper.login(credentials)
     }
 
     await expect(page.getByText("Data Usage For")).toBeVisible()
