@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test"
 import { AstoundTestRunner } from "../src/services/AstoundTestRunner"
-import { DataScraper } from "../src/services/DataScraper"
+import { AstoundBillingDataScraper } from "../src/services/AstoundBillingDataScraper"
 
 test.describe("Astound Mock Tests", () => {
   const mockHtmlPath = "testdata/astound-data-usage-2024-11-10T05-56-21-584Z.html"
@@ -17,7 +17,7 @@ test.describe("Astound Mock Tests", () => {
   })
 
   test("handles missing data in HTML correctly", async ({ page }) => {
-    const scraper = new DataScraper(page)
+    const scraper = new AstoundBillingDataScraper(page)
 
     await page.setContent(`
     <html>
@@ -31,7 +31,7 @@ test.describe("Astound Mock Tests", () => {
   })
 
   test("parses different date formats correctly", async ({ page }) => {
-    const scraper = new DataScraper(page)
+    const scraper = new AstoundBillingDataScraper(page)
 
     const dateFormats = [
       { html: "as of 2024-11-10", expected: "2024-11-10" },
