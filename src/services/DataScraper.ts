@@ -12,7 +12,7 @@ export interface ScrapedData {
   units: string
 }
 
-export class AstoundBillingDataScraper {
+export class DataScraper {
   constructor(private readonly page: Page) {}
 
   async login(username: string, password: string): Promise<void> {

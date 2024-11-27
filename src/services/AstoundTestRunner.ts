@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test"
 import { ConfigManager } from "../config/ConfigManager"
-import { AstoundBillingDataScraper } from "./AstoundBillingDataScraper"
+import { DataScraper } from "./DataScraper"
 import { FileManager } from "./FileManager"
 import { UsageRecord } from "../models/UsageData"
 
@@ -19,7 +19,7 @@ export class AstoundTestRunner {
     const fileManager = new FileManager(dataDir)
     await fileManager.initialize()
 
-    const scraper = new AstoundBillingDataScraper(page)
+    const scraper = new DataScraper(page)
 
     if (this.config.useMockData) {
       if (!this.config.mockHtmlPath) {
