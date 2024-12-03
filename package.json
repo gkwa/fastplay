@@ -21,7 +21,7 @@
     "@playwright/test": "1.49.0",
     "@types/node": "22.10.1",
     "cross-env": "7.0.3",
-    "dotenv": "16.4.5",
+    "dotenv": "16.4.6",
     "prettier": "3.4.1"
   }
 }
