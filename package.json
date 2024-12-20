@@ -2,7 +2,7 @@
   "name": "fastplay",
   "version": "1.0.0",
   "main": "index.js",
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@9.15.1",
   "scripts": {
     "fmt": "prettier --ignore-path=.prettierignore --config=.prettierrc.json --write .",
     "test": "playwright test example.spec.ts",
