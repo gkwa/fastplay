@@ -77,7 +77,7 @@ jobs:
           fi
       - name: Run Playwright tests
         run: pnpm run astound:test:mock
-      - uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b
+      - uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
         if: ${{ !cancelled() }}
         with:
           name: playwright-report-${{ matrix.os }}-${{ github.run_id }}
