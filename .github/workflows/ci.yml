@@ -54,7 +54,7 @@ jobs:
           fi
       - name: Cache playwright browsers
         id: browsers-cache
-        uses: actions/cache@7921ae235bdcb376cc8f22558dc5f8ddc3c3c2f9
+        uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf
         with:
           path: ${{ steps.cache-path.outputs.CACHE_PATH }}
           key: ${{ runner.os }}-browsers-${{ steps.playwright-version.outputs.version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
