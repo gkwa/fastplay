@@ -18,8 +18,8 @@ importers:
         specifier: 7.0.3
         version: 7.0.3
       dotenv:
-        specifier: 16.4.7
-        version: 16.4.7
+        specifier: 16.5.0
+        version: 16.5.0
       prettier:
         specifier: 3.5.3
         version: 3.5.3
@@ -43,8 +43,8 @@ packages:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
 
-  dotenv@16.4.7:
-    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+  dotenv@16.5.0:
+    resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
     engines: {node: '>=12'}
 
   fsevents@2.3.2:
@@ -110,7 +110,7 @@ snapshots:
       shebang-command: 2.0.0
       which: 2.0.2
 
-  dotenv@16.4.7: {}
+  dotenv@16.5.0: {}
 
   fsevents@2.3.2:
     optional: true
