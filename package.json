@@ -13,6 +13,6 @@
   "devDependencies": {
     "@playwright/test": "1.53.1",
     "@types/node": "22.15.32",
-    "prettier": "3.5.3"
+    "prettier": "3.6.0"
   }
 }
