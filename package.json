@@ -12,7 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "1.54.1",
-    "@types/node": "22.16.4",
+    "@types/node": "22.16.5",
     "prettier": "3.6.2"
   }
 }
