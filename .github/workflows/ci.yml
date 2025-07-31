@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@8edcb1bdb4e267140fa742c62e395cd74f332709
-      - uses: actions/setup-node@65beceff8e91358525397bdce9103d999507ab03
+      - uses: actions/setup-node@5e2628c959b9ade56971c0afcebbe5332d44b398
         with:
           node-version: lts/*
       - name: Install pnpm
