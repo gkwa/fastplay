@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@8edcb1bdb4e267140fa742c62e395cd74f332709
       - uses: actions/setup-node@5e2628c959b9ade56971c0afcebbe5332d44b398
         with:
-          node-version: 22
+          node-version: 22.18.0
       - name: Install pnpm
         uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
       - name: Get Playwright version
