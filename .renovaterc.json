@@ -10,7 +10,7 @@
       "recreateWhen": "always"
     }
   ],
-  "baseBranches": ["astound", "master"],
+  "baseBranchPatterns": ["astound", "master"],
   "platformAutomerge": true,
   "postUpdateOptions": ["npmDedupe", "pnpmDedupe"],
   "prHourlyLimit": 0
