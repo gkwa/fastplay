@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       - uses: actions/setup-node@b9b25d45f70a5d94d88496aa4896bf9ed8f49b67
         with:
-          node-version: 24.11.1
+          node-version: 24.12.0
       - name: Install pnpm
         uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4
       - name: Get Playwright version
