@@ -15,8 +15,8 @@ importers:
         specifier: 24.13.2
         version: 24.13.2
       prettier:
-        specifier: 3.9.3
-        version: 3.9.3
+        specifier: 3.9.4
+        version: 3.9.4
 
 packages:
 
@@ -43,8 +43,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  prettier@3.9.3:
-    resolution: {integrity: sha512-HWmu+K+zvHNpaMfSnYeqdqrDbR16cuIXaPx8WoHaviQkDJh1/0BNtOZmHVQI5jc3wXv0H1yXc9wjvFdXh+n3hQ==}
+  prettier@3.9.4:
+    resolution: {integrity: sha512-yWG/o/4oJfo036EKAfK6ACAoDOfHeRHx4tuxkfBZiauURiaSmYwlpOr5LQqKtIkRD2z1PLteme2WoxEnj4tHTg==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -72,6 +72,6 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.2
 
-  prettier@3.9.3: {}
+  prettier@3.9.4: {}
 
   undici-types@7.18.2: {}
