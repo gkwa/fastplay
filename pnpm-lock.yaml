@@ -179,8 +179,8 @@ importers:
         specifier: 18.0.10
         version: 18.0.10
       prettier:
-        specifier: 3.9.10
-        version: 3.9.10
+        specifier: 3.10.0
+        version: 3.10.0
 
 packages:
 
@@ -226,8 +226,8 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  prettier@3.9.10:
-    resolution: {integrity: sha512-skGHTH1Yb9QvaTC4hWnRTzEYtCpApF0UMBPz+t/0ZPzP8ihefo/btKd+QA7pUE0fEwA1SbS/NmhyEcstdXOIdA==}
+  prettier@3.10.0:
+    resolution: {integrity: sha512-mBi4765LgjO1PFjlEs7pUeK0nb1bw71c+N4/ItfeUWNdY5cV2pRKaFpbbFRYmDJMO+5ZwzGxHRqHxFZna7iv5w==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -282,7 +282,7 @@ snapshots:
     dependencies:
       playwright-core: 1.65.0
 
-  prettier@3.9.10: {}
+  prettier@3.10.0: {}
 
   shebang-command@2.0.0:
     dependencies:
