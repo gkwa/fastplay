@@ -19,7 +19,7 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "1.65.1",
-    "@types/node": "26.6.7",
+    "@types/node": "26.6.10",
     "cross-env": "10.1.0",
     "dotenv": "18.0.10",
     "prettier": "3.10.1"
